@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-public class TableProcessFunction extends BroadcastProcessFunction<JSONObject, String, JSONObject> {
+public class TableProcessFunction extends  BroadcastProcessFunction<JSONObject, String, JSONObject> {
 
     private MapStateDescriptor<String, TableProcess> stateDescriptor;
     private Connection connection;
@@ -66,7 +66,18 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject, S
             if (sinkExtend == null) {
                 sinkExtend = "";
             }
-
+            // 2022-06-08 17:11:24
+            // string   string对象创建之后不可变，销毁之前
+            //          赋值，是创建一个新的内存，并引用
+            //StringBuffer  可变字符对象
+            //          内存地址没变，没有重新生成一个对象
+            //          append()、insert()、reverse()、setCharAt()、setLength()
+            //          可使用append方法，追加
+            //          使用tostring方法，转成字符
+            //          StringBuffer是线程安全的
+            //StringBuilder 可变字符串对象
+            //          StringBuilder和StringBuffer基本相似
+            //          StringBuilder则没有实现线程安全功能，所以性能略高
             StringBuilder sql = new StringBuilder("create table if not exists ")
                     .append(GmallConfig.HBASE_SCHEMA)
                     .append(".")
