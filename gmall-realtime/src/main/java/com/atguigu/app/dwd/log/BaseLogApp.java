@@ -131,6 +131,11 @@ public class BaseLogApp {
         };
         OutputTag<String> errorTag = new OutputTag<String>("error") {
         };
+
+        // 2022-06-09 01:32:29
+        //  @FunctionalInterface注解
+        //      编译级错误检查，接口不符合函数式接口定义
+        //      “函数式接口”是指仅仅只包含一个 抽象方法*的接口
         SingleOutputStreamOperator<String> pageDS = jsonObjWithNewFlagDS.process(new ProcessFunction<JSONObject, String>() {
             @Override
             public void processElement(JSONObject value, Context ctx, Collector<String> out) throws Exception {
