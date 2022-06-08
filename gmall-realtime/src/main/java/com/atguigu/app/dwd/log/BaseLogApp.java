@@ -68,10 +68,23 @@ public class BaseLogApp {
         //TODO 4.使用状态编程做新老用户校验
         KeyedStream<JSONObject, String> keyedByMidStream = jsonObjDS.keyBy(json -> json.getJSONObject("common").getString("mid"));
         SingleOutputStreamOperator<JSONObject> jsonObjWithNewFlagDS = keyedByMidStream.map(new RichMapFunction<JSONObject, JSONObject>() {
+            // 2022-06-09 00:53:03
+            //      分区单值状态的状态接口。可以检索或更新该值。
+            //      状态由用户函数访问和修改，并作为分布式快照的一部分由系统一致地检查点。
+            //      状态只能由应用于KeyedStream的函数访问。该键由系统自动提供，因此该函数始终可以看到映射到当前元素键的值。这样，系统可以一致地同时处理流和状态分区。
+            //          update方法，设置状态
+            //          value方法，获取当前状态
+            //          clear方法，删除当前状态
             private ValueState<String> lastVisitDtState;
 
             @Override
             public void open(Configuration parameters) throws Exception {
+                // 2022-06-09 00:57:53
+                //          getRuntimeContext（）访问其运行时执行上下文的方法。
+
+                // 2022-06-09 01:00:07
+                //          获取系统键/值列表状态的句柄。此状态类似于通过getState（ValueStateDescriptor）访问的状态，但针对保存列表的状态进行了优化。可以向列表中添加元素，也可以检索整个列表。
+                //          只有在KeyedStream上执行函数时，才能访问此状态。
                 lastVisitDtState = getRuntimeContext().getState(new ValueStateDescriptor<String>("last-visit", String.class));
             }
 
