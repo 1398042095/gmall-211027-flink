@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/gmall-flink-211027.iml" filepath="$PROJECT_DIR$/gmall-flink-211027.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gmall-publisher-2022/gmall-publisher-2022.iml" filepath="$PROJECT_DIR$/gmall-publisher-2022/gmall-publisher-2022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gmall-realtime/gmall-realtime.iml" filepath="$PROJECT_DIR$/gmall-realtime/gmall-realtime.iml" />
+    </modules>
+  </component>
+</project>
