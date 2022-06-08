@@ -36,6 +36,11 @@ public class DimApp {
         DataStreamSource<String> kafkaDS = env.addSource(MyKafkaUtil.getKafkaConsumer("topic_db", "dim_app_211027"));
 
         //TODO 3.过滤掉非JSON格式的数据,并将其写入侧输出流
+        // 2022-06-08 12:25:49
+        //  split 将一个流分成多个流
+        // select 获取分流之后对应的数据
+        //  注意：split函数已经过期，并且移除
+        //  side outputs：可以使用process方法对流中数据进行处理，并对不同的处理结果将数据收集到不同的outputtag中
         OutputTag<String> dirtyDataTag = new OutputTag<String>("Dirty") {
         };
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaDS.process(new ProcessFunction<String, JSONObject>() {
