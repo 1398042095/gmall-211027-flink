@@ -41,6 +41,7 @@ public class BaseLogApp {
 
         // 2022-06-09 00:34:59
         //  OutputTag有两个构造函数，当前用的这个构造函数只有一个参数，传入一个string，用来标识分流的数据是什么含义；另一个构造函数还可以传入一个TypeInformation对象，这个是用来说明分流的数据是什么类型的。
+        //      ??? {} 函数   }Flink可以派生泛型类
         OutputTag<String> dirtyTag = new OutputTag<String>("Dirty") {
         };
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaDS.process(new ProcessFunction<String, JSONObject>() {
