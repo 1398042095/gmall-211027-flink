@@ -45,6 +45,8 @@ public class DimApp {
                     JSONObject jsonObject = JSON.parseObject(s);
                     collector.collect(jsonObject);
                 } catch (Exception e) {
+                    // 2022-06-08 11:33:37
+                    // 通过解析json异常捕获，异常数据，输入到测输出流
                     context.output(dirtyDataTag, s);
                 }
             }
