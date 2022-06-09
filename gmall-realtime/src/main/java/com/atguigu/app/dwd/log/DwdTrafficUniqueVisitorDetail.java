@@ -65,6 +65,19 @@ public class DwdTrafficUniqueVisitorDetail {
             public void open(Configuration parameters) throws Exception {
                 ValueStateDescriptor<String> valueStateDescriptor = new ValueStateDescriptor<>("visit-dt", String.class);
                 //设置状态的TTL
+
+                // 2022-06-09 13:18:33
+                //  StateTtlConfig  状态TTL逻辑的配置
+                //      Builder 创建 StateTtlConfig对象
+                //     UpdateTyp枚举，此选项值配置何时更新延长状态TTL的上次访问时间戳。
+                //          Disabled    状态未过期
+                //          OnCreateAndWrite    上次访问时间戳是在每次写入操作时创建和更新状态
+                //          OnReadAndWrite  每次写入操作时创建和更新状态，也在读取时更新
+                //      build方法 返回一个StateTtlConfig对象
+
+                // 2022-06-09 13:23:41
+                //  Time.days   apache flink common
+                //      返回一个day时间
                 StateTtlConfig stateTtlConfig = new StateTtlConfig.Builder(Time.days(1))
                         .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
                         .build();
@@ -94,6 +107,10 @@ public class DwdTrafficUniqueVisitorDetail {
         //TODO 7.将数据写出到Kafka
         uvDetailDS.print(">>>>>>>>>");
         String targetTopic = "dwd_traffic_unique_visitor_detail";
+
+        // 2022-06-09 12:58:30
+        //      JSONAware   接口
+        //          toJSONString抽象方法
         uvDetailDS.map(JSONAware::toJSONString)
                 .addSink(MyKafkaUtil.getKafkaProducer(targetTopic));
 
