@@ -81,7 +81,11 @@ public class DwdTrafficUniqueVisitorDetail {
                 StateTtlConfig stateTtlConfig = new StateTtlConfig.Builder(Time.days(1))
                         .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
                         .build();
+
+                // 2022-06-09 13:29:13
+                //      enableTimeToLive    根据StateTtlConfig设置，状态的ttl
                 valueStateDescriptor.enableTimeToLive(stateTtlConfig);
+
 
                 //初始化状态
                 visitDtState = getRuntimeContext().getState(valueStateDescriptor);
