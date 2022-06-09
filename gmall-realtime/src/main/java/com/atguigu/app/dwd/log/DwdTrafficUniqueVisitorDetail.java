@@ -38,7 +38,12 @@ public class DwdTrafficUniqueVisitorDetail {
         DataStreamSource<String> kafkaDS = env.addSource(MyKafkaUtil.getKafkaConsumer(sourceTopic, groupId));
 
         //TODO 3.将每行数据转换为JSON对象
+
+        // 2022-06-09 12:41:04
+        //      kafkaDS.map(line -> JSON.parse(line));
+        //          lamdba写法
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaDS.map(JSON::parseObject);
+
 
         //TODO 4.过滤掉上一跳页面id不等于null的数据
         SingleOutputStreamOperator<JSONObject> filterDS = jsonObjDS.filter(new FilterFunction<JSONObject>() {
